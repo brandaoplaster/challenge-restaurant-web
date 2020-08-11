@@ -38,8 +38,19 @@ const Dashboard: React.FC = () => {
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
     try {
-      // TODO ADD A NEW FOOD PLATE TO THE API
+      const foodPlate: IFoodPlate = {
+        id: foods.length + 1,
+        image: food.image,
+        name: food.name,
+        description: food.description,
+        price: food.price,
+        available: true,
+      };
+
+      await api.post('/foods', foodPlate);
+      setFoods([...foods, foodPlate]);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err);
     }
   }
